@@ -1,0 +1,12 @@
+django
+djangorestframework
+drf-spectacular
+django-cors-headers
+cryptography
+loguru
+python-dotenv
+openai
+channels
+channels-redis
+mongoengine
+uvicorn

@@ -1,0 +1,115 @@
+openapi: 3.0.3
+info:
+  title: AIChat API
+  version: 0.0.1
+  description: AIChat API description
+paths:
+  /chat/api/dialog:
+    get:
+      operationId: chat_api_dialog_retrieve
+      tags:
+      - chat
+      security:
+      - session: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialogStorage'
+          description: ''
+    post:
+      operationId: chat_api_dialog_create
+      tags:
+      - chat
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DialogStorage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DialogStorage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DialogStorage'
+        required: true
+      security:
+      - session: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DialogStorage'
+          description: ''
+    delete:
+      operationId: chat_api_dialog_destroy
+      parameters:
+      - in: query
+        name: dialog_index
+        schema:
+          type: string
+        required: true
+      tags:
+      - chat
+      security:
+      - session: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    DialogField:
+      type: object
+      properties:
+        created_at:
+          type: string
+          maxLength: 100
+        replicas:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplicaField'
+          minItems: 1
+      required:
+      - created_at
+      - replicas
+    DialogStorage:
+      type: object
+      properties:
+        session:
+          type: string
+          maxLength: 50
+          minLength: 1
+        dialog:
+          $ref: '#/components/schemas/DialogField'
+      required:
+      - dialog
+      - session
+    ReplicaField:
+      type: object
+      properties:
+        source:
+          $ref: '#/components/schemas/SourceEnum'
+        text:
+          type: string
+          minLength: 1
+      required:
+      - source
+      - text
+    SourceEnum:
+      enum:
+      - user
+      - ai
+      type: string
+      description: |-
+        * `user` - user
+        * `ai` - ai
+  securitySchemes:
+    session:
+      type: apiKey
+      in: cookie
+      name: sessionid

@@ -1,0 +1,18 @@
+.dialog > .user > div, .dialog > .ai > div, .chat-history > div {
+    word-wrap: break-word;
+}
+
+.dialog {
+    height: 575px;
+    max-height: 575px;
+    overflow-y: auto;
+}
+
+.chat-history {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.history-point {
+    cursor: pointer;
+}

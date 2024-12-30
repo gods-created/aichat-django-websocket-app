@@ -1,0 +1,34 @@
+{% load static %}
+
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark border-end border-1" style="width: 25%; height: 100vh;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">Chat history</span>
+    </a>
+    <hr>
+    <div class="chat-history d-flex flex-column align-items-center">
+        {% for index, dialog in dialogs %}
+            <div class="history-point border border-1 border-light rounded-3 shadow w-100 p-3 text-center mb-4">
+                Dialog from {{ dialog.created_at }}
+
+                <div class="d-flex flex-column align-items-center mt-1">
+                    <button type="submit" class="btn btn-success my-1 load-dialog" title="LOAD" dialog_index="{{ index }}"></button>
+                    <button type="submit" class="btn btn-danger my-1 delete-dialog" title="DELETE" dialog_index="{{ index }}"></button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 75%; height: 100vh;">
+    <div class="dialog">
+        <!-- -->
+    </div>
+    <form class="form d-flex align-items-center justify-content-center mt-auto">
+        <textarea class="form-control mx-2" style="resize: none;">Hello, everybody!</textarea>
+
+        <div class="flex flex-column align-items-center mx-2">
+            <button class="btn btn-lg btn-outline-light my-1 w-100 submit" type="submit">Submit</button>
+            <button class="btn btn-lg btn-outline-light my-1 w-100 save-dialog">Save</button>
+        </div>
+    </form>
+</div>
